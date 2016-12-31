@@ -17,7 +17,7 @@ public class DBConnection
     private static String user = "homestead";//Username of database
     private static String pass = "secret";//Password of database*/
     // **********************************************************************************
-    private static String url = "jdbc:mysql://192.168.11.10:3306/coincollection";
+    private static String url = "jdbc:mysql://192.168.11.10:3306/coincollection?autoReconnect=true&useSSL=false";
     private static String user = "halljb57";//Username of database
     private static String pass = "jH14490196";//Password of database
 

@@ -11,9 +11,9 @@ public class ShowCoins
 {
     private int coin_Id;
     private String mint_Year;
-    private int mintage_For_Circulation;
-    private int mintage_Of_Proofs;
-    private int denominations_Id;
+    private String detail;
+    private String mintage_For_Circulation;
+    private String mintage_Of_Proofs;
     private int denomination_Series_Id;
     private String mint_Mark;
     private String designer;
@@ -23,19 +23,20 @@ public class ShowCoins
     private String edge;
     private String notes;
 
+    // **********************************************************************************
     public ShowCoins()
     {
     }
 
-    public ShowCoins(int coin_Id, String mint_Year, int mintage_For_Circulation, int mintage_Of_Proofs,
-                     int denominations_Id, int denomination_Series_Id, String mint_Mark, String designer,
-                     String diameter, String metal_Content, String weight, String edge, String notes)
+    public ShowCoins(int coin_Id, String mint_Year, String detail, String mintage_For_Circulation, String mintage_Of_Proofs,
+                     int denomination_Series_Id, String mint_Mark, String designer, String diameter,
+                     String metal_Content, String weight, String edge, String notes)
     {
         this.coin_Id = coin_Id;
         this.mint_Year = mint_Year;
+        this.detail = detail;
         this.mintage_For_Circulation = mintage_For_Circulation;
         this.mintage_Of_Proofs = mintage_Of_Proofs;
-        this.denominations_Id = denominations_Id;
         this.denomination_Series_Id = denomination_Series_Id;
         this.mint_Mark = mint_Mark;
         this.designer = designer;
@@ -44,12 +45,6 @@ public class ShowCoins
         this.weight = weight;
         this.edge = edge;
         this.notes = notes;
-    }
-
-    // **********************************************************************************
-    public boolean isPersistent()
-    {
-        return coin_Id != 0;
     }
 
     // **********************************************************************************
@@ -73,34 +68,34 @@ public class ShowCoins
         this.mint_Year = mint_Year;
     }
 
-    public int getMintage_For_Circulation()
+    public String getDetail()
+    {
+        return detail;
+    }
+
+    public void setDetail(String detail)
+    {
+        this.detail = detail;
+    }
+
+    public String getMintage_For_Circulation()
     {
         return mintage_For_Circulation;
     }
 
-    public void setMintage_For_Circulation(int mintage_For_Circulation)
+    public void setMintage_For_Circulation(String mintage_For_Circulation)
     {
         this.mintage_For_Circulation = mintage_For_Circulation;
     }
 
-    public int getMintage_Of_Proofs()
+    public String getMintage_Of_Proofs()
     {
         return mintage_Of_Proofs;
     }
 
-    public void setMintage_Of_Proofs(int mintage_Of_Proofs)
+    public void setMintage_Of_Proofs(String mintage_Of_Proofs)
     {
         this.mintage_Of_Proofs = mintage_Of_Proofs;
-    }
-
-    public int getDenominations_Id()
-    {
-        return denominations_Id;
-    }
-
-    public void setDenominations_Id(int denominations_Id)
-    {
-        this.denominations_Id = denominations_Id;
     }
 
     public int getDenomination_Series_Id()
@@ -183,15 +178,16 @@ public class ShowCoins
         this.notes = notes;
     }
 
+    // **********************************************************************************
     @Override
     public String toString()
     {
         return "ShowCoins{" +
                "coin_Id=" + coin_Id +
                ", mint_Year='" + mint_Year + '\'' +
+               ", detail='" + detail + '\'' +
                ", mintage_For_Circulation=" + mintage_For_Circulation +
                ", mintage_Of_Proofs=" + mintage_Of_Proofs +
-               ", denominations_Id=" + denominations_Id +
                ", denomination_Series_Id=" + denomination_Series_Id +
                ", mint_Mark='" + mint_Mark + '\'' +
                ", designer='" + designer + '\'' +

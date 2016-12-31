@@ -359,7 +359,7 @@ public class CoinAttributesService implements ICoinAttributesService
     }
 
     // ******************************************************************************************
-    public boolean remove(int id)
+    public void remove(int id)
     {
         /*try
         {
@@ -377,7 +377,7 @@ public class CoinAttributesService implements ICoinAttributesService
             DBConnection.close(conn);
             System.out.println("\n" + "Data Deleted CoinAttributes_id " + coinAttributes.getCoin_attributes_id());
         }*/
-        return false;
+//        return false;
     }
 
     // ******************************************************************************************

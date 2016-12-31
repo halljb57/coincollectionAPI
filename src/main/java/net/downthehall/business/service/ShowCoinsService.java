@@ -22,7 +22,7 @@ public class ShowCoinsService implements IShowCoinsService
     private ResultSet rs;
     private PreparedStatement ps;
 
-    // ******************************************************************************************
+    // ************************************************************************ Fine All
     public List<ShowCoins> findAll()
     {
         List<ShowCoins> coinsList = new ArrayList();
@@ -46,7 +46,7 @@ public class ShowCoinsService implements IShowCoinsService
         return coinsList;
     }
 
-    // ******************************************************************************************
+    // ************************************************************************ Find By Name
     public List<String> findByName()
     {
         List<String> coinsList = new ArrayList();
@@ -71,7 +71,47 @@ public class ShowCoinsService implements IShowCoinsService
         return coinsList;
     }
 
-    // ******************************************************************************************
+    // ************************************************************************ Find Coins List By Id
+    // ************************************ DELETE TABLE_ID FROM SHOW_TABLE
+    public void findCoinsListById(int id)
+    {
+        try
+        {
+            conn = DBConnection.connect();
+            ps = conn.prepareStatement("DELETE FROM show_coins WHERE denomination_series_id > 0;");
+            int count = ps.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally
+        {
+            DBConnection.close(conn);
+            UpDateInTableId(id);
+        }
+    }
+    // ******* COPY TABLE_ID FROM MAIN TABLE AND PASTE IT IN SHOW_TABLE
+    public void UpDateInTableId(int colId)
+    {
+        try
+        {
+            conn = DBConnection.connect();
+            ps = conn.prepareStatement(
+                    "INSERT INTO show_coins SELECT * FROM coins WHERE denomination_series_id = ?");
+            ps.setInt(1, colId);
+            ps.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally
+        {
+            DBConnection.close(conn);
+        }
+    }
+
+    // ************************************************************************ Create
     public ShowCoins create(ShowCoins showCoins)
     {
         try
@@ -79,15 +119,15 @@ public class ShowCoinsService implements IShowCoinsService
             conn = DBConnection.connect();
             ps = conn.prepareStatement(
                     "INSERT INTO showCoins (" +
-                    "mint_Year, mintage_For_Circulation, mintage_Of_Proofs, denominations_Id, " +
+                    "mint_Year, detail, mintage_For_Circulation, mintage_Of_Proofs, " +
                     "denomination_Series_Id, mint_Mark, designer, " +
                     "diameter, metal_Content, weight, edge, notes) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     new String[]{"ID"});
             ps.setString(1, showCoins.getMint_Year());
-            ps.setInt(2, showCoins.getMintage_For_Circulation());
-            ps.setInt(3, showCoins.getMintage_Of_Proofs());
-            ps.setInt(4, showCoins.getDenominations_Id());
+            ps.setString(2, showCoins.getDetail());
+            ps.setString(3, showCoins.getMintage_For_Circulation());
+            ps.setString(4, showCoins.getMintage_Of_Proofs());
             ps.setInt(5, showCoins.getDenomination_Series_Id());
             ps.setString(6, showCoins.getMint_Mark());
             ps.setString(7, showCoins.getDesigner());
@@ -121,14 +161,14 @@ public class ShowCoinsService implements IShowCoinsService
         {
             conn = DBConnection.connect();
             ps = conn.prepareStatement(
-                    "UPDATE showCoins SET mint_Year=?, mintage_For_Circulation=?, mintage_Of_Proofs=?, " +
-                    "denominations_Id=?, denomination_Series_Id=?, mint_Mark=?, designer=?, " +
+                    "UPDATE showCoins SET mint_Year=?, detail=?, mintage_For_Circulation=?, mintage_Of_Proofs=?, " +
+                    "denomination_Series_Id=?, mint_Mark=?, designer=?, " +
                     "diameter=?, metal_Content=?, weight=?, edge=?, notes=?" +
                     "WHERE coin_Id=?");
             ps.setString(1, showCoins.getMint_Year());
-            ps.setInt(2, showCoins.getMintage_For_Circulation());
-            ps.setInt(3, showCoins.getMintage_Of_Proofs());
-            ps.setInt(4, showCoins.getDenominations_Id());
+            ps.setString(2, showCoins.getDetail());
+            ps.setString(3, showCoins.getMintage_For_Circulation());
+            ps.setString(4, showCoins.getMintage_Of_Proofs());
             ps.setInt(5, showCoins.getDenomination_Series_Id());
             ps.setString(6, showCoins.getMint_Mark());
             ps.setString(7, showCoins.getDesigner());
@@ -152,15 +192,15 @@ public class ShowCoinsService implements IShowCoinsService
     }
 
     // ******************************************************************************************
-    public boolean remove(ShowCoins showCoins)
+    public void remove(int id)
     {
         try
         {
             conn = DBConnection.connect();
             ps = conn.prepareStatement("DELETE FROM show_coins WHERE coin_Id=?");
-            ps.setInt(1, showCoins.getCoin_Id());
+            ps.setInt(1, id);
             int count = ps.executeUpdate();
-            return count == 1;
+//            return count == 1;
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -177,9 +217,9 @@ public class ShowCoinsService implements IShowCoinsService
         ShowCoins showCoins = new ShowCoins();
         showCoins.setCoin_Id(rs.getInt("coin_Id"));
         showCoins.setMint_Year(rs.getString("mint_Year"));
-        showCoins.setMintage_For_Circulation(rs.getInt("mintage_For_Circulation"));
-        showCoins.setMintage_Of_Proofs(rs.getInt("mintage_Of_Proofs"));
-        showCoins.setDenominations_Id(rs.getInt("denominations_Id"));
+        showCoins.setDetail(rs.getString("detail"));
+        showCoins.setMintage_For_Circulation(rs.getString("mintage_For_Circulation"));
+        showCoins.setMintage_Of_Proofs(rs.getString("mintage_Of_Proofs"));
         showCoins.setDenomination_Series_Id(rs.getInt("denomination_Series_Id"));
         showCoins.setMint_Mark(rs.getString("mint_Mark"));
         showCoins.setDesigner(rs.getString("designer"));

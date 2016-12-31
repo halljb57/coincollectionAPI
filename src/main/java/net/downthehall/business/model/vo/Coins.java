@@ -15,8 +15,9 @@ public class Coins implements Serializable
     // **********************************************************************************
     private int coin_id;
     private String mint_year;
-    private int mintage_for_circulation;
-    private int mintage_of_proofs;
+    private String detail;
+    private String mintage_for_circulation;
+    private String mintage_of_proofs;
     private int denomination_series_id;
     private String mint_mark;
     private String designer;
@@ -31,12 +32,13 @@ public class Coins implements Serializable
     {
     }
 
-    public Coins(int coin_id, String mint_year, int mintage_for_circulation, int mintage_of_proofs,
+    public Coins(int coin_id, String mint_year, String detail, String mintage_for_circulation, String mintage_of_proofs,
                  int denomination_series_id, String mint_mark, String designer, String diameter,
                  String metal_content, String weight, String edge, String notes)
     {
         this.coin_id = coin_id;
         this.mint_year = mint_year;
+        this.detail = detail;
         this.mintage_for_circulation = mintage_for_circulation;
         this.mintage_of_proofs = mintage_of_proofs;
         this.denomination_series_id = denomination_series_id;
@@ -70,22 +72,32 @@ public class Coins implements Serializable
         this.mint_year = mint_year;
     }
 
-    public int getMintage_for_circulation()
+    public String getDetail()
+    {
+        return detail;
+    }
+
+    public void setDetail(String detail)
+    {
+        this.detail = detail;
+    }
+
+    public String getMintage_for_circulation()
     {
         return mintage_for_circulation;
     }
 
-    public void setMintage_for_circulation(int mintage_for_circulation)
+    public void setMintage_for_circulation(String mintage_for_circulation)
     {
         this.mintage_for_circulation = mintage_for_circulation;
     }
 
-    public int getMintage_of_proofs()
+    public String getMintage_of_proofs()
     {
         return mintage_of_proofs;
     }
 
-    public void setMintage_of_proofs(int mintage_of_proofs)
+    public void setMintage_of_proofs(String mintage_of_proofs)
     {
         this.mintage_of_proofs = mintage_of_proofs;
     }
@@ -177,6 +189,7 @@ public class Coins implements Serializable
         return "Coins{" +
                "coin_id=" + coin_id +
                ", mint_year='" + mint_year + '\'' +
+               ", detail='" + detail + '\'' +
                ", mintage_for_circulation=" + mintage_for_circulation +
                ", mintage_of_proofs=" + mintage_of_proofs +
                ", denomination_series_id=" + denomination_series_id +
@@ -194,7 +207,7 @@ public class Coins implements Serializable
     // Fields are listed here for type-safety
     public enum Fields
     {
-        coin_id, mint_year, mintage_for_circulation, mintage_of_proofs,
+        coin_id, mint_year, detail, mintage_for_circulation, mintage_of_proofs,
         denomination_series_id, mint_mark, designer, diameter,
         metal_content, weight, edge, notes
     }

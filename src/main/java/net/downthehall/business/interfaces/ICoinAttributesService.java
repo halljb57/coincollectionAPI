@@ -18,5 +18,5 @@ public interface ICoinAttributesService
 
     CoinAttributes update(CoinAttributes coinAttributes);
 
-    boolean remove(int id);
+    void remove(int id);
 }

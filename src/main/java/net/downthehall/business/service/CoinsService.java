@@ -87,22 +87,23 @@ public class CoinsService implements ICoinsService
             conn = DBConnection.connect();
             ps = conn.prepareStatement(
                     "INSERT INTO coins (" +
-                    "mint_year, mintage_for_circulation, mintage_of_proofs," +
+                    "mint_year, detail, mintage_for_circulation, mintage_of_proofs," +
                     "denomination_series_id, mint_mark, designer, " +
                     "diameter, metal_content, weight, edge, notes) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     new String[]{"ID"});
             ps.setString(1, coins.getMint_year());
-            ps.setInt(2, coins.getMintage_for_circulation());
-            ps.setInt(3, coins.getMintage_of_proofs());
-            ps.setInt(4, coins.getDenomination_series_id());
-            ps.setString(5, coins.getMint_mark());
-            ps.setString(6, coins.getDesigner());
-            ps.setString(7, coins.getDiameter());
-            ps.setString(8, coins.getMetal_content());
-            ps.setString(9, coins.getWeight());
-            ps.setString(10, coins.getEdge());
-            ps.setString(11, coins.getNotes());
+            ps.setString(2, coins.getDetail());
+            ps.setString(3, coins.getMintage_for_circulation());
+            ps.setString(4, coins.getMintage_of_proofs());
+            ps.setInt(5, coins.getDenomination_series_id());
+            ps.setString(6, coins.getMint_mark());
+            ps.setString(7, coins.getDesigner());
+            ps.setString(8, coins.getDiameter());
+            ps.setString(9, coins.getMetal_content());
+            ps.setString(10, coins.getWeight());
+            ps.setString(11, coins.getEdge());
+            ps.setString(12, coins.getNotes());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -128,23 +129,24 @@ public class CoinsService implements ICoinsService
         {
             conn = DBConnection.connect();
             ps = conn.prepareStatement(
-                    "UPDATE coins SET mint_year=?, mintage_for_circulation=?, mintage_of_proofs=?, " +
+                    "UPDATE coins SET mint_year=?, detail=?, mintage_for_circulation=?, mintage_of_proofs=?, " +
                     "denomination_series_id=?, mint_mark=?, designer=?, " +
                     "diameter=?, metal_content=?, weight=?, edge=?, notes=?" +
                     "WHERE coin_id=?");
             ps.setString(1, coins.getMint_year());
-            ps.setInt(2, coins.getMintage_for_circulation());
-            ps.setInt(3, coins.getMintage_of_proofs());
-            ps.setInt(4, coins.getDenomination_series_id());
-            ps.setString(5, coins.getMint_mark());
-            ps.setString(6, coins.getDesigner());
-            ps.setString(7, coins.getDiameter());
-            ps.setString(8, coins.getMetal_content());
-            ps.setString(8, coins.getWeight());
-            ps.setString(10, coins.getEdge());
-            ps.setString(11, coins.getNotes());
+            ps.setString(2, coins.getDetail());
+            ps.setString(3, coins.getMintage_for_circulation());
+            ps.setString(4, coins.getMintage_of_proofs());
+            ps.setInt(5, coins.getDenomination_series_id());
+            ps.setString(6, coins.getMint_mark());
+            ps.setString(7, coins.getDesigner());
+            ps.setString(8, coins.getDiameter());
+            ps.setString(9, coins.getMetal_content());
+            ps.setString(10, coins.getWeight());
+            ps.setString(11, coins.getEdge());
+            ps.setString(12, coins.getNotes());
 
-            ps.setInt(12, coins.getCoin_id());
+            ps.setInt(13, coins.getCoin_id());
             ps.executeUpdate();
         } catch (SQLException e)
         {
@@ -184,8 +186,9 @@ public class CoinsService implements ICoinsService
         Coins coins = new Coins();
         coins.setCoin_id(rs.getInt("coin_id"));
         coins.setMint_year(rs.getString("mint_year"));
-        coins.setMintage_for_circulation(rs.getInt("mintage_for_circulation"));
-        coins.setMintage_of_proofs(rs.getInt("mintage_of_proofs"));
+        coins.setDetail(rs.getString("detail"));
+        coins.setMintage_for_circulation(rs.getString("mintage_for_circulation"));
+        coins.setMintage_of_proofs(rs.getString("mintage_of_proofs"));
         coins.setDenomination_series_id(rs.getInt("denomination_series_id"));
         coins.setMint_mark(rs.getString("mint_mark"));
         coins.setDesigner(rs.getString("designer"));
